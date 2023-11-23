@@ -47,7 +47,9 @@ class PhoneNumber extends Equatable {
     this.phoneNumber,
     this.dialCode,
     this.isoCode,
-  }) : _hash = 1000 + Random().nextInt(99999 - 1000);
+  }) : _hash = (phoneNumber != null)
+            ? int.parse(phoneNumber.replaceAll(RegExp(r'[^0-9]'), ''))
+            : 1000 + Random().nextInt(99999 - 1000);
 
   @override
   String toString() {

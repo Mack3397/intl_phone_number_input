@@ -153,6 +153,7 @@ class SelectorButton extends StatelessWidget {
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(12), topRight: Radius.circular(12))),
       useSafeArea: selectorConfig.useBottomSheetSafeArea,
+      useRootNavigator: selectorConfig.useRootNavigator,
       builder: (BuildContext context) {
         return Stack(children: [
           GestureDetector(

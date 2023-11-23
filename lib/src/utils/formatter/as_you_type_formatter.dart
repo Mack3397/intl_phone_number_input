@@ -7,13 +7,13 @@ typedef OnInputFormatted<T> = void Function(T value);
 /// which provides as you type validation and formatting for phone number inputted.
 class AsYouTypeFormatter extends TextInputFormatter {
   /// Contains characters allowed as seperators.
-  final RegExp separatorChars = RegExp(r'[^\d]+');
+  final RegExp separatorChars = RegExp(r'[^0-9]+');
 
   /// The [allowedChars] contains [RegExp] for allowable phone number characters.
-  final RegExp allowedChars = RegExp(r'[\d+]');
+  final RegExp allowedChars = RegExp(r'[0-9+]');
 
   final RegExp bracketsBetweenDigitsOrSpace =
-      RegExp(r'(?![\s\d])([()])(?=[\d\s])');
+      RegExp(r'(?![\s0-9])([()])(?=[0-9\s])');
 
   /// The [isoCode] of the [Country] formatting the phone number to
   final String isoCode;
@@ -52,6 +52,10 @@ class AsYouTypeFormatter extends TextInputFormatter {
 
           int offset =
               newValue.selection.end == -1 ? 0 : newValue.selection.end;
+
+          if (offset > parsedText.length) {
+            return newValue;
+          }
 
           if (separatorChars.hasMatch(parsedText)) {
             String valueInInputIndex = parsedText[offset - 1];
